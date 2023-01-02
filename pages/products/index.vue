@@ -1,21 +1,25 @@
 <template>
   <div>
-    <h1>This is product list page</h1>
-    <div>
-      <ul>
-        <li v-for="(product, index) in products" :key="index"><NuxtLink :to="{name: 'products-id', params: {id: product._id}}">{{product.name}}</NuxtLink></li>
-      </ul>
+    <NavBar />
+    <div class="container mt-10 mx-auto">
+      <div class="flex flex-row gap-3">
+        <ProductCart class="basis-1/3" v-for="(product, index) in products" :key="index" :product="product"/>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import NavBar from '~/components/layouts/NavBar.vue';
 export default {
   name: 'ProductListPage',
   data() {
     return {
       products: [],
     }
+  },
+  components: {
+    NavBar,
   },
   async fetch() {
     const response = await this.$http.$get('products')
