@@ -42,6 +42,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxt/http',
     '@nuxtjs/proxy',
+    'primevue/nuxt'
 
   ],
 
@@ -60,6 +61,12 @@ export default {
     // ['http://localhost:8000/', { ws: false }],
 
   ],
+  primevue: {
+    theme: 'md-light-indigo',
+    ripple: true,
+    components: ['InputText', 'Button', 'DataTable', 'Dialog', "Sidebar"],
+    directives: ['Tooltip', 'Badge']
+  },
 
 
 
