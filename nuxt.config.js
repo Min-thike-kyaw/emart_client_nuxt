@@ -43,8 +43,9 @@ export default {
     '@nuxtjs/axios',
     '@nuxt/http',
     '@nuxtjs/proxy',
-    'primevue/nuxt'
-
+    'primevue/nuxt',
+    'cookie-universal-nuxt',
+    '@nuxtjs/auth-next'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -60,7 +61,6 @@ export default {
   },
   proxy: [
     // ['http://localhost:8000/', { ws: false }],
-
   ],
   primevue: {
     theme: 'md-light-indigo',
@@ -68,8 +68,33 @@ export default {
     components: ['InputText', 'Button', 'DataTable', 'Dialog', "Sidebar"],
     directives: ['Tooltip', 'Badge']
   },
-
-
+  auth: {
+    strategies: {
+      local: {
+        token: {
+          property: 'token',
+          global: true,
+          // required: true,
+          // type: 'Bearer'
+        },
+        user: {
+          property: 'user',
+          // autoFetch: true
+        },
+        endpoints: {
+          login: { url: '/api/auth/login', method: 'post' },
+          logout: { url: '/api/auth/logout', method: 'post' },
+          user: { url: '/api/auth/user', method: 'get' }
+        },
+        redirect: {
+          login: '/login',
+          logout: '/',
+          callback: '/login',
+          home: '/'
+        }
+      }
+    }
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

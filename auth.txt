@@ -1,0 +1,38 @@
+export const state = () => ({
+    token: '',
+    userstring: '',
+})
+
+export const getters = {
+    getUser(state) {
+        return JSON.parse(state.userstring)
+    }
+}
+
+export const mutations = {
+    setAuth(state, payload){
+        state.token = payload.token;
+        state.userstring = payload.userstring;
+    },
+    removeAuth(state){
+        state.token = '';
+        state.userstring = '';
+    }
+}
+
+export const actions = {
+    nuxtServerInit({ commit }, { req, app }) {
+        let auth = null;
+        const token = app.$cookies.get('token')
+        const userstring = app.$cookies.get('userstring');
+        if (token && userstring) {
+            commit("setAuth", {
+                token,
+                userstring
+            });
+        } else {
+            commit("removeAuth");
+        }
+    }
+}
+
