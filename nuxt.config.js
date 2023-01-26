@@ -1,6 +1,6 @@
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
-  ssr: false,
+
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -26,7 +26,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: '~/plugins/vue-good-table', ssr: false }
+    { src: '~/plugins/vue-good-table', ssr: true }
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -45,7 +45,6 @@ export default {
     '@nuxtjs/proxy',
     'primevue/nuxt',
     'cookie-universal-nuxt',
-    '@nuxtjs/auth-next'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -68,36 +67,10 @@ export default {
     components: ['InputText', 'Button', 'DataTable', 'Dialog', "Sidebar"],
     directives: ['Tooltip', 'Badge']
   },
-  auth: {
-    strategies: {
-      local: {
-        token: {
-          property: 'token',
-          global: true,
-          // required: true,
-          // type: 'Bearer'
-        },
-        user: {
-          property: 'user',
-          // autoFetch: true
-        },
-        endpoints: {
-          login: { url: '/api/auth/login', method: 'post' },
-          logout: { url: '/api/auth/logout', method: 'post' },
-          user: { url: '/api/auth/user', method: 'get' }
-        },
-        redirect: {
-          login: '/login',
-          logout: '/',
-          callback: '/login',
-          home: '/'
-        }
-      }
-    }
-  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    transpile: ['primevue'],
     postcss: {
       plugins: {
         tailwindcss: {},

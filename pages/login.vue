@@ -11,6 +11,9 @@
           <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
             Sign in to your account
           </h1>
+          <div class="mt-6">
+            <span v-if="error" class="text-red-500">{{ error }}</span>
+          </div>
           <div class="space-y-4 md:space-y-6" action="#">
             <div>
               <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
@@ -28,12 +31,9 @@
             <div class="flex items-center justify-between">
               <div class="flex items-start">
                 <div class="flex items-center h-5">
-                  <input id="remember" aria-describedby="remember" type="checkbox"
-                    class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
-                    required="">
+                  
                 </div>
                 <div class="ml-3 text-sm">
-                  <label for="remember" class="text-gray-500 dark:text-gray-300">Remember me</label>
                 </div>
               </div>
               <a href="#" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">Forgot
@@ -55,20 +55,32 @@
 </template>
 
 <script>
+import JWTService from '~/core/JWTService';
+
 export default {
   name: 'Login',
+  middleware: 'no-auth',
   data(){
     return {
       form: {
-        name: '',
         email: '',
-      }
+        password: '',
+      },
+      error: '',
     }
   },
   methods: {
     async signin(){
-      console.log(this.form);
-      await this.$auth.loginWith('local', { data: this.form })
+      let self = this;
+      
+      await this.$axios.post('/api/login',this.form).then(function(res){
+        JWTService.saveToken(self,res.data.data.token);
+        self.$router.push('/admin');
+      }).catch(function(error) {
+        self.error = error.response.data.message;
+        console.log(error.response, "response error")
+        console.log(error.data, "response");
+      })
     }
   }
 }

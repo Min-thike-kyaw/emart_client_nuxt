@@ -69,9 +69,9 @@
                         class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
                         Admin Layout Pages</h6>
                     <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-                        <li class="items-center"><a
+                        <li class="items-center"><router-link
                                 class="text-xs uppercase py-3 font-bold block text-lightBlue-500 hover:text-lightBlue-600"
-                                href="/admin/dashboard"><i class="fas fa-tv mr-2 text-sm opacity-75"></i> Dashboard</a>
+                                to="/categories"><i class="fas fa-tv mr-2 text-sm opacity-75"></i> Categoreis</router-link>
                         </li>
                         <li class="items-center"><a
                                 class="text-xs uppercase py-3 font-bold block text-blueGray-700 hover:text-blueGray-500"
