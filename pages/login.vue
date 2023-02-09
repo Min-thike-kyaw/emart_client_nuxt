@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import ApiService from '~/core/ApiService';
 import JWTService from '~/core/JWTService';
 
 export default {
@@ -72,14 +73,25 @@ export default {
   methods: {
     async signin(){
       let self = this;
-      
+      // self.$router.push('/');
       await this.$axios.post('/api/login',this.form).then(function(res){
         JWTService.saveToken(self,res.data.data.token);
-        self.$router.push('/admin');
+        ApiService.init(self)
+        let user = res.data.data.data;
+        self.$store.commit("auth/setAuth", {
+            token: res.data.data.token,
+            user
+        });
+      }).then((res)=>{
+        if (self.$route.query.r) {
+          self.$router.push(decodeURIComponent(self.$route.query.r));
+        } else {
+          self.$router.push("/");
+        }
       }).catch(function(error) {
-        self.error = error.response.data.message;
-        console.log(error.response, "response error")
-        console.log(error.data, "response");
+        console.log(error);
+        self.error = error.response ? error.response.data.message: '';
+        console.log(error, "response errorfdal")
       })
     }
   }

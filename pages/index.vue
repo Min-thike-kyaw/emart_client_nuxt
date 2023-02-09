@@ -3,6 +3,9 @@
 
 
     <NavBar />
+    <NuxtLink to="/login">
+      login
+    </NuxtLink>
     <!-- <NuxtLink to="/products">
       Product Page
     </NuxtLink> -->

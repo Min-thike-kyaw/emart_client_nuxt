@@ -92,6 +92,7 @@ export default {
     },
     logout(){
       JWTService.removeToken(this);
+      this.$store.commit("auth/removeAuth");
       this.$router.push('/');
     }
   

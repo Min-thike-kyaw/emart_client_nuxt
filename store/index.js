@@ -3,6 +3,7 @@ import JWTService from "~/core/JWTService"
 
 export const actions = {
     async nuxtServerInit({ commit }, { req, app }) {
+        
         const token = JWTService.getToken(app);
         if (token) {
             ApiService.init(app);
