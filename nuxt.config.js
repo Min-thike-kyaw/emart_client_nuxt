@@ -45,6 +45,7 @@ export default {
     '@nuxtjs/proxy',
     'primevue/nuxt',
     'cookie-universal-nuxt',
+    'nuxt-socket-io'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -58,6 +59,19 @@ export default {
     // HTTP options here
     baseURL: 'http://localhost:8000/',
   },
+
+  io: {
+    sockets: [ // Required
+      { // At least one entry is required
+        name: 'home',
+        url: 'http://localhost:8000',
+        default: true,
+      }, 
+    ]
+  },
+
+
+
   proxy: [
     // ['http://localhost:8000/', { ws: false }],
   ],
