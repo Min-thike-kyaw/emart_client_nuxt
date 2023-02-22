@@ -77,7 +77,7 @@ export default {
       await this.$axios.post('/api/login',this.form).then(function(res){
         JWTService.saveToken(self,res.data.data.token);
         ApiService.init(self)
-        let user = res.data.data.data;
+        let user = res.data.data;
         self.$store.commit("auth/setAuth", {
             token: res.data.data.token,
             user

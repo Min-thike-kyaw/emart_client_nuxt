@@ -8,7 +8,8 @@ export const actions = {
         if (token) {
             ApiService.init(app);
             await app.$http.$get('api/me').then((res) => {
-                let user = res.data.data;
+                let user = res.data;
+                
                 commit("auth/setAuth", {
                     token,
                     user
